@@ -42,7 +42,7 @@ alpha  	[a-zA-Z]
 [xX]		printf("><");
 [yY]		printf("`/");
 [zZ]		printf("2");
-^alpha		printf(yytext);
+^alpha		printf("%s",yytext);
 \n		printf("\n");
 %%
 

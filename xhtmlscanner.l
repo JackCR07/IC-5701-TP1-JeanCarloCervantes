@@ -21,8 +21,7 @@
 /* Reglas */
 %%
 
-"//"[^\r\n]* 					{ }
-[/][*]([^*]|[*]+[^/])*[*]+[/] 	{ i=0; while(i<strlen(yytext)){if (yytext[i]=='\n'){ lines++; chars=0; };chars++; i++;}; }
+[<][!][-][-]([^-]|[-]+[^>])*[-][-][>] 	{ i=0; while(i<strlen(yytext)){if (yytext[i]=='\n'){ lines++; chars=0; };chars++; i++;};printf("lineas:%d y chars=;%d",lines,chars); }
 [\n]       						{ lines++; chars = 1; }
 "void"							{ printf("VOID \n"); chars+=strlen(yytext); }
 "int"							{ printf("INT \n"); chars+=strlen(yytext); }

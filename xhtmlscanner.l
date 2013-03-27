@@ -26,8 +26,8 @@
 [\n]       						{ lines++; chars = 1; }
 "<"						{chars+=strlen(yytext); return T_OpenSign;}
 ">"						{chars+=strlen(yytext); return T_CloseSign;}
-"a"|"abbr"|"acronym"|"address"|"applet"|"area"|"b"|"base"|"basefont"|"bdo"|"big"|"blockquote"|"body"|"br"|"button"|"caption"|"center"|"cite"|"code"|"col"|"colgroup"|"dd"|"del"|"dfn"|"dir"|"div"|"dl"|"dt"|"em"|"fieldset"|"font"|"form"|"frame"|"frameset"|"h1"|"h2"|"h3"|"h4"|"h5"|"h6"|"head"|"hr"|"html"|"i"|"iframe"|"img"|"input"|"ins"|"isindex"|"kbd"|"label"|"legend"|"li"|"link"|"map"|"menu"|"meta"|"noframes"|"noscript"|"object"|"ol"|"optgroup"|"option"|"p"|"param"|"pre"|"q"|"s"|"samp"|"script"|"select"|"small"|"span"|"strike"|"strong"|"style"|"sub"|"sup"|"table"|"tbody"|"td"|"textarea"|"tfoot"|"th"|"thead"|"title"|"tr"|"tt"|"u"|"ul"|"var"				{chars+=strlen(yytext); yylval.stringConstant=strdup(yytext);return T_Elements;}
-\"(\\.|[^\\"])*\" 				{ printf("STRING(%s) \n", yytext); chars+=strlen(yytext); }
+"acronym"|"address"|"basefont"|"blockquote"|"caption"|"colgroup"|"fieldset"|"frameset"|"isindex"|"noframes"|"noscript"|"optgroup"|"textarea"|"applet"|"button"|"center"|"iframe"|"legend"|"object"|"option"|"script"|"select"|"strike"|"strong"|"frame"|"input"|"label"|"param"|"style"|"table"|"tbody"|"tfoot"|"thead"|"title"|"abbr"|"area"|"base"|"body"|"cite"|"code"|"font"|"form"|"head"|"html"|"link"|"menu"|"meta"|"samp"|"small"|"span"|"bdo"|"big"|"col"|"del"|"dfn"|"dir"|"div"|"img"|"ins"|"kbd"|"map"|"pre"|"sub"|"sup"|"var"|"br"|"dd"|"dl"|"dt"|"em"|"h1"|"h2"|"h3"|"h4"|"h5"|"h6"|"hr"|"li"|"ol"|"td"|"th"|"tr"|"tt"|"ul"|"a"|"b"|"i"|"p"|"q"|"s"|"u"				{chars+=strlen(yytext); yylval.stringConstant=strdup(yytext);return T_Elements;}
+\"(\\.|[^\\"])*\" 				{ chars+=strlen(yytext); yylval.stringConstant=strdup(yytext);return T_Values; }
 \'([^\']|\\.)?\'				{ printf("CHARACTER(%s) \n", yytext); chars+=strlen(yytext); }
 [ \t\v\f]      					{ chars += strlen(yytext); }
 . 								{ printf("ERROR: ROW: %d, COLUMN:%d\n", lines, chars); chars++; }
@@ -39,15 +39,17 @@
 
 static void PrintOneToken(TokenType token, const char *text, YYSTYPE value)
 {
+      char buffer[] = {'\'', token, '\'', '\0'};
+      const char *name = token >= T_OpenSign ? gTokenNames[token - T_OpenSign] : buffer;
   
 
   
 
-      printf("(value = %s)\n", value.stringConstant); 
+      printf("(name= %s , value = %s)\n", name, value.stringConstant); 
  
 }
 
-int main(int argc, char *argv[])
+int main()
 {
 
     TokenType token;

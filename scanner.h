@@ -16,7 +16,7 @@
  */
 typedef enum { 
     T_OpenSign = 256,
-    T_CloseSign, T_Elements, T_Atributtes, T_Values, T_Text, T_Equal, T_Colon,
+    T_CloseSign, T_Elements, T_Atributtes, T_Values, T_Text, T_Minus, T_Equal, T_Colon,
     T_Slash, T_QuestionMark, T_ExclamationMark, T_PublicIdentifier, T_DOCTYPE,
     T_NumTokenTypes
 } TokenType;
@@ -25,7 +25,7 @@ typedef enum {
 // Lista de los printable names para cada valor del token definido anteriormente.
  
 static const char *gTokenNames[T_NumTokenTypes] = {
-  "T_OpenSign", "T_CloseSign", "T_Elements", "T_Atributtes", "T_Values", "T_Text", "T_Equal", "T_Colon",
+  "T_OpenSign", "T_CloseSign", "T_Elements", "T_Atributtes", "T_Values", "T_Text", "T_Minus", "T_Equal", "T_Colon",
   "T_Slash", "T_QuestionMark", "T_ExclamationMark", "T_PublicIdentifier", "T_DOCTYPE"
 };
 

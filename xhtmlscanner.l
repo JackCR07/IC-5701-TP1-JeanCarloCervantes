@@ -10,6 +10,7 @@
 %{
 	#include "scanner.h"
 	YYSTYPE yylval; 
+	FILE * ErrorFile;
 	int i = 0;
 	int chars = 1;
 	int lines = 1;
@@ -40,7 +41,7 @@
 [a-zA-Z0-9]+[a-zA-Z0-9]*    			{chars+=strlen(yytext); yylval.stringConstant=strdup(yytext);return T_Text;}
 [+\-*\%;,.(){}\[\]_]				{chars+=strlen(yytext); yylval.stringConstant=strdup(yytext);return T_Text;}
 [ \t\v\f]      					{ chars += strlen(yytext); }
-. 								{ printf("ERROR: ROW: %d, COLUMN:%d\n", lines, chars); chars++; }
+. 								{ fprintf (ErrorFile,"ERROR: ROW: %d, COLUMN:%d\n", lines, chars); chars++; }
 
 %%
 
@@ -62,6 +63,7 @@ int main()
 {
 
     TokenType token;
+    ErrorFile = fopen ("Errorfile.txt","w");
     while ((token = (TokenType)yylex()) != 0) 
         PrintOneToken(token, yytext, yylval);
 }

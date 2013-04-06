@@ -17,7 +17,7 @@
 typedef enum { 
     T_OpenSign = 256,
     T_CloseSign, T_Elements, T_Atributtes, T_Values, T_Text, T_Minus, T_Equal, T_Colon,
-    T_Slash, T_QuestionMark, T_ExclamationMark, T_PublicIdentifier, T_DOCTYPE,
+    T_Slash, T_QuestionMark, T_ExclamationMark, T_XML, T_PublicIdentifier, T_DOCTYPE,
     T_NumTokenTypes
 } TokenType;
 
@@ -26,7 +26,7 @@ typedef enum {
  
 static const char *gTokenNames[T_NumTokenTypes] = {
   "T_OpenSign", "T_CloseSign", "T_Elements", "T_Atributtes", "T_Values", "T_Text", "T_Minus", "T_Equal", "T_Colon",
-  "T_Slash", "T_QuestionMark", "T_ExclamationMark", "T_PublicIdentifier", "T_DOCTYPE"
+  "T_Slash", "T_QuestionMark", "T_ExclamationMark", "T_XML", "T_PublicIdentifier", "T_DOCTYPE"
 };
 
  
@@ -44,8 +44,8 @@ extern YYSTYPE yylval;
 
 extern char *yytext;      // Texto del lexema escaneado
 
-OpenErrorFile();	// Abre archivo de errores
-CloseErrorFile();	// Cierra archivo de errores
+void OpenErrorFile();	// Abre archivo de errores
+void CloseErrorFile();	// Cierra archivo de errores
 
 int yylex();              // Definido en el archivo lex.yy.c generado
 

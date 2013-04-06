@@ -44,6 +44,8 @@ extern YYSTYPE yylval;
 
 extern char *yytext;      // Texto del lexema escaneado
 
+OpenErrorFile();	// Abre archivo de errores
+CloseErrorFile();	// Cierra archivo de errores
 
 int yylex();              // Definido en el archivo lex.yy.c generado
 

@@ -30,7 +30,7 @@ LIBS = -lc -lm -ll
 	$(CC) $(CFLAGS) -c -o $@ $*.cc
 
 lex.yy.c: xhtmlscanner.l 
-	$(LEX) $(LEXFLAGS) scanner.l
+	$(LEX) $(LEXFLAGS) xhtmlscanner.l
 
 .cc.o: $*.cc
 	$(CC) $(CFLAGS) -c -o $@ $*.cc

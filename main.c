@@ -1,17 +1,24 @@
-/* Archivo main.c
+/* 
+ * Instituto Tecnológico de Costa Rica
+ * Escuela de Computación
+ * Curso de Compiladores e Interpretes
+ * Profesor Andrei Fuentes
+ * Estudiante: Jean Carlo Cervantes
+ * Tarea Programada #1
+ * Archivo: main
  */
+
 
 #include <stdio.h>
 #include "scanner.h"
 
-/* Function: PrintOneToken()
- * Usage: PrintOneToken(T_Double, "3.5", val, loc);
- * -----------------------------------------------
- * We supply this function to print information about the tokens returned
- * by the lexer as part of pp1.  Do not modifiy it.
+/* La funcion PrintToken recibe el tipo de token, el yytext
+ * y el valor que se almacena en yylval, y la salida que es
+ * el nombre del token y el valor de ser necesario de la 
+ * funcion es por el stdout.
  */
 
-static void PrintOneToken(TokenType token, const char *text, YYSTYPE value)
+static void PrintToken(TokenType token, const char *text, YYSTYPE value)
 {
       char buffer[] = {'\'', token, '\'', '\0'};
       const char *name = token >= T_OpenSign ? gTokenNames[token - T_OpenSign] : buffer;
@@ -22,12 +29,18 @@ static void PrintOneToken(TokenType token, const char *text, YYSTYPE value)
  
 }
 
+/* El main solo define las variables necesarias para la funcion
+ * PrintToken, crea el archivo de errores y por medio del loop 
+ * se toma cada token y su salida es por el stdout si no hay errores
+ * o por stderr si los hay.
+*/
 int main()
 {
 
     TokenType token;
     OpenErrorFile();
     while ((token = (TokenType)yylex()) != 0) 
-        PrintOneToken(token, yytext, yylval);
+        PrintToken(token, yytext, yylval);
     CloseErrorFile();
+    return 0;
 }
